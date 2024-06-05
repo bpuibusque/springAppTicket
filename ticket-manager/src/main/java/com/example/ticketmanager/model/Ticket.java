@@ -1,25 +1,22 @@
 package com.example.ticketmanager.model;
 
-import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
 public class Ticket {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
     private String description;
     private String status;
 
-    @ManyToMany
-    @JoinTable(
-        name = "user_tickets",
-        joinColumns = @JoinColumn(name = "ticket_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private List<User> users;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    // Getters and setters
 
     public Long getId() {
         return id;
@@ -53,11 +50,11 @@ public class Ticket {
         this.status = status;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

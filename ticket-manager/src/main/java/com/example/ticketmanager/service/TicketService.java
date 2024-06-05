@@ -27,7 +27,7 @@ public class TicketService {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            return user.getTickets();
+            return user.getTickets().stream().toList();
         } else {
             throw new RuntimeException("User not found");
         }
@@ -41,7 +41,7 @@ public class TicketService {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            ticket.getUsers().add(user);
+            ticket.setUser(user);
             return ticketRepository.save(ticket);
         } else {
             throw new RuntimeException("User not found");

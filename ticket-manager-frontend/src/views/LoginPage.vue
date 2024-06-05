@@ -12,13 +12,16 @@
       </div>
       <button type="submit">Login</button>
     </form>
-      <div id="app">
+    <div v-if="error" class="error">
+      {{ error }}
+    </div>
+    <div id="app">
       <nav>
         <router-link to="/register">Register</router-link>
       </nav>
       <router-view/> 
-      </div>
-</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -27,11 +30,13 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      error: null
     };
   },
   methods: {
     async login() {
+      this.error = null;
       try {
         const response = await fetch('http://localhost:8080/api/users/login', {
           method: 'POST',
@@ -45,11 +50,12 @@ export default {
           localStorage.setItem('user', JSON.stringify(user));
           this.$router.push('/');
         } else {
-          alert('Login failed');
+          const errorText = await response.text();
+          this.error = `Login failed: ${errorText}`;
         }
       } catch (error) {
         console.error('Failed to login:', error);
-        alert('Login failed');
+        this.error = 'Login failed: an unexpected error occurred';
       }
     }
   }
@@ -57,5 +63,8 @@ export default {
 </script>
 
 <style scoped>
-/* Ajoutez ici vos styles pour cette page */
+.error {
+  color: red;
+  margin-top: 10px;
+}
 </style>

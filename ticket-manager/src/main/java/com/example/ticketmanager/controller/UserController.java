@@ -14,16 +14,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
-        try {
-            userService.registerUser(user);
-            return ResponseEntity.ok("User registered successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error registering user: " + e.getMessage());
-        }
-    }
-
     @PostMapping("/login")
     public ResponseEntity<User> loginUser(@RequestBody User user) {
         User authenticatedUser = userService.authenticateUser(user.getUsername(), user.getPassword());

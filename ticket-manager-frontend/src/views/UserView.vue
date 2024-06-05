@@ -19,8 +19,8 @@ export default {
   data() {
     return {
       user: {
-        id: 1,  // ID de l'utilisateur connecté; vous pouvez le récupérer dynamiquement selon votre logique d'authentification
-        username: 'JohnDoe'  // Nom d'utilisateur de l'utilisateur connecté
+        id: 1, 
+        username: 'baba'
       }
     };
   },
