@@ -12,6 +12,9 @@
       </div>
       <button type="submit">Register</button>
     </form>
+    <div v-if="error" class="error">
+      {{ error }}
+    </div>
   </div>
 </template>
 
@@ -20,13 +23,15 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      error: null
     };
   },
   methods: {
     async register() {
+      this.error = null;
       try {
-        const response = await fetch('http://localhost:8080/api/register', {
+        const response = await fetch('http://localhost:8080/api/users/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -38,14 +43,23 @@ export default {
         });
         if (response.ok) {
           alert('User registered successfully');
+          this.$router.push('/login');
         } else {
-          alert('Failed to register');
+          const errorText = await response.text();
+          this.error = `Failed to register: ${errorText}`;
         }
       } catch (error) {
         console.error('Error:', error);
-        alert('Error registering user');
+        this.error = 'Error registering user';
       }
     }
   }
 };
 </script>
+
+<style scoped>
+.error {
+  color: red;
+  margin-top: 10px;
+}
+</style>

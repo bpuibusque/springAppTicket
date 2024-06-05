@@ -29,6 +29,11 @@ public class TicketController {
         return ticketService.createTicket(ticket);
     }
 
+    @PostMapping("/user/{userId}")
+    public Ticket createTicketForUser(@PathVariable Long userId, @RequestBody Ticket ticket) {
+        return ticketService.createTicketForUser(userId, ticket);
+    }
+
     @PutMapping("/{id}")
     public Ticket updateTicket(@PathVariable Long id, @RequestBody Ticket ticketDetails) {
         return ticketService.updateTicket(id, ticketDetails);

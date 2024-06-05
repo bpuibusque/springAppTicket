@@ -12,7 +12,13 @@
       </div>
       <button type="submit">Login</button>
     </form>
-  </div>
+      <div id="app">
+      <nav>
+        <router-link to="/register">Register</router-link>
+      </nav>
+      <router-view/> 
+      </div>
+</div>
 </template>
 
 <script>
@@ -36,14 +42,20 @@ export default {
         });
         if (response.ok) {
           const user = await response.json();
-          this.$emit('login', user);
+          localStorage.setItem('user', JSON.stringify(user));
+          this.$router.push('/');
         } else {
           alert('Login failed');
         }
       } catch (error) {
         console.error('Failed to login:', error);
+        alert('Login failed');
       }
     }
   }
 };
 </script>
+
+<style scoped>
+/* Ajoutez ici vos styles pour cette page */
+</style>
