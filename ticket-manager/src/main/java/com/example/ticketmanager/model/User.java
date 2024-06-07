@@ -16,8 +16,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Ticket> tickets = new HashSet<>();
 
-    // Getters and setters
-
     public Long getId() {
         return id;
     }

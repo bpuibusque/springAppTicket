@@ -16,7 +16,6 @@ public class Ticket {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // Getters and setters
 
     public Long getId() {
         return id;
