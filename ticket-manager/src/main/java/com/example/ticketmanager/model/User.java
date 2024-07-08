@@ -5,17 +5,23 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Ticket> tickets = new HashSet<>();
 
+    // Getters and setters
     public Long getId() {
         return id;
     }

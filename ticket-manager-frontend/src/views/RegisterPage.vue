@@ -1,36 +1,34 @@
+<template>
+  <div>
+    <h2>Inscription</h2>
+    <form @submit.prevent="register">
+      <input v-model="username" placeholder="Nom d'utilisateur" required />
+      <input v-model="password" type="password" placeholder="Mot de passe" required />
+      <button type="submit">Inscription</button>
+    </form>
+  </div>
+</template>
+
 <script>
+import api from '../api';
+
 export default {
   data() {
     return {
       username: '',
-      password: '',
-      error: null
+      password: ''
     };
   },
   methods: {
     async register() {
-      this.error = null;
       try {
-        const response = await fetch('http://localhost:8080/api/users/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            username: this.username,
-            password: this.password
-          })
+        await api.post('/users/register', {
+          username: this.username,
+          password: this.password
         });
-        if (response.ok) {
-          alert('User registered successfully');
-          this.$router.push('/login');
-        } else {
-          const errorText = await response.text();
-          this.error = `Failed to register: ${errorText}`;
-        }
+        this.$router.push('/login');
       } catch (error) {
-        console.error('Error:', error);
-        this.error = 'Error registering user';
+        console.error(error);
       }
     }
   }

@@ -1,32 +1,28 @@
 <template>
   <div>
-    <h1>User View</h1>
-    <ticket-form :user="user" @ticketCreated="fetchTickets"></ticket-form>
-    <user-tickets :user="user" ref="userTickets"></user-tickets>
+    <h2>Tickets pour {{ user.username }}</h2>
+    <ul>
+      <li v-for="ticket in tickets" :key="ticket.id">{{ ticket.description }} - {{ ticket.status }}</li>
+    </ul>
   </div>
 </template>
 
 <script>
-import TicketForm from '../components/TicketForm.vue';
-import UserTickets from '../components/UserTickets.vue';
+import api from '../api';
 
 export default {
-  name: 'UserView',
-  components: {
-    TicketForm,
-    UserTickets
-  },
+  props: ['user'],
   data() {
     return {
-      user: {
-        id: 1, 
-        username: 'baba'
-      }
+      tickets: []
     };
   },
-  methods: {
-    fetchTickets() {
-      this.$refs.userTickets.fetchTickets();
+  async created() {
+    try {
+      const response = await api.get(`/tickets/user/${this.user.id}`);
+      this.tickets = response.data;
+    } catch (error) {
+      console.error(error);
     }
   }
 };

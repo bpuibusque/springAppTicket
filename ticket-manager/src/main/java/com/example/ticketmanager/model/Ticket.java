@@ -3,20 +3,27 @@ package com.example.ticketmanager.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "tickets")
 public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-
+    // Getters and setters
     public Long getId() {
         return id;
     }
