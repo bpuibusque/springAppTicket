@@ -1,26 +1,30 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/admin">Admin</router-link>
-      <router-link to="/user">User</router-link>
-      <router-link to="/login">Login</router-link>
-    </nav>
-    <router-view/>
+    <UsersList />
+    <TicketsList />
   </div>
 </template>
 
 <script>
+import UsersList from './components/UserList.vue';
+import TicketsList from './components/TicketList.vue';
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    UsersList,
+    TicketsList
+  }
 };
 </script>
 
 <style>
-nav {
-  margin-bottom: 20px;
-}
-nav a {
-  margin: 0 10px;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
