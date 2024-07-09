@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS tickets (
     description VARCHAR(255) NOT NULL,
     status VARCHAR(255) NOT NULL,
     user_id BIGINT,
-    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 INSERT INTO tickets (title, description, status, user_id) VALUES ('Ticket 1', 'Description 1', 'new', 1);
